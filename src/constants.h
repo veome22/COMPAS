@@ -1570,6 +1570,7 @@ const COMPASUnorderedMap<PROPERTY_TYPE, std::string> PROPERTY_TYPE_LABEL = {
     RADIAL_EXPANSION_TIMESCALE_POST_COMMON_ENVELOPE, \
     RADIAL_EXPANSION_TIMESCALE_PRE_COMMON_ENVELOPE,  \
     RADIUS,                                          \
+    RADIUS_PREV,                                     \
     RANDOM_SEED,                                     \
     RECYCLED_NEUTRON_STAR,                           \
     RLOF_ONTO_NS,                                    \
@@ -1714,6 +1715,7 @@ const COMPASUnorderedMap<STAR_PROPERTY, std::string> STAR_PROPERTY_LABEL = {
     { STAR_PROPERTY::RADIAL_EXPANSION_TIMESCALE_POST_COMMON_ENVELOPE, "RADIAL_EXPANSION_TIMESCALE_POST_COMMON_ENVELOPE" },
     { STAR_PROPERTY::RADIAL_EXPANSION_TIMESCALE_PRE_COMMON_ENVELOPE,  "RADIAL_EXPANSION_TIMESCALE_PRE_COMMON_ENVELOPE" },
     { STAR_PROPERTY::RADIUS,                                          "RADIUS" },
+    { STAR_PROPERTY::RADIUS_PREV,                                     "RADIUS_PREV" },
     { STAR_PROPERTY::RANDOM_SEED,                                     "RANDOM_SEED" },
     { STAR_PROPERTY::RECYCLED_NEUTRON_STAR,                           "RECYCLED_NEUTRON_STAR" },
     { STAR_PROPERTY::RLOF_ONTO_NS,                                    "RLOF_ONTO_NS" },
@@ -2571,6 +2573,7 @@ const std::map<ANY_STAR_PROPERTY, PROPERTY_DETAILS> ANY_STAR_PROPERTY_DETAIL = {
     { ANY_STAR_PROPERTY::RADIAL_EXPANSION_TIMESCALE_POST_COMMON_ENVELOPE,   { TYPENAME::DOUBLE,         "Tau_Radial>CE",        "Myr",              16, 8 }},
     { ANY_STAR_PROPERTY::RADIAL_EXPANSION_TIMESCALE_PRE_COMMON_ENVELOPE,    { TYPENAME::DOUBLE,         "Tau_Radial<CE",        "Myr",              16, 8 }},
     { ANY_STAR_PROPERTY::RADIUS,                                            { TYPENAME::DOUBLE,         "Radius",               "Rsol",             14, 6 }},
+    { ANY_STAR_PROPERTY::RADIUS_PREV,                                       { TYPENAME::DOUBLE,         "Radius_Prev",          "Rsol",             14, 6 }},
     { ANY_STAR_PROPERTY::RANDOM_SEED,                                       { TYPENAME::ULONGINT,       "SEED",                 "-",                12, 1 }},
     { ANY_STAR_PROPERTY::RECYCLED_NEUTRON_STAR,                             { TYPENAME::BOOL,           "Recycled_NS",          "Event",             0, 0 }},
     { ANY_STAR_PROPERTY::RLOF_ONTO_NS,                                      { TYPENAME::BOOL,           "RLOF->NS",             "Event",             0, 0 }},
@@ -3252,6 +3255,8 @@ const ANY_PROPERTY_VECTOR BSE_SUPERNOVAE_REC = {
     COMPANION_PROPERTY::STELLAR_TYPE,
     SUPERNOVA_PROPERTY::STELLAR_TYPE,
     SUPERNOVA_PROPERTY::STELLAR_TYPE_PREV,
+    SUPERNOVA_PROPERTY::RADIUS_PREV,
+    COMPANION_PROPERTY::RADIUS,
     COMPANION_PROPERTY::MASS,
     SUPERNOVA_PROPERTY::TOTAL_MASS_AT_COMPACT_OBJECT_FORMATION,
     SUPERNOVA_PROPERTY::CORE_MASS_AT_COMPACT_OBJECT_FORMATION,
