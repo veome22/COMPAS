@@ -319,9 +319,8 @@ constexpr double MAXIMUM_METALLICITY                    = 0.03;                 
 
 // IMF constants
 constexpr double SALPETER_POWER                         = -2.35;
-constexpr double KROUPA_POWER                           = -2.35;
-constexpr double KROUPA_MINIMUM                         = 0.5;
-constexpr double KROUPA_MAXIMUM                         = 100.0;
+constexpr double SALPETER_MINIMUM                       = 0.5;
+constexpr double SALPETER_MAXIMUM                       = 100.0;
 
 // Kroupa IMF is a broken power law with three slopes
 constexpr double KROUPA_POWER_1                         = -0.3;
@@ -974,7 +973,7 @@ const COMPASUnorderedMap<MT_TRACKING, std::string> MT_TRACKING_LABEL = {
 
 
 // Mass tranfer timing options for writing to BSE_RLOF file
-// Doen't need labels...
+// Doesn't need labels...
 enum class MASS_TRANSFER_TIMING: int { PRE_MT, POST_MT };
 
 // Metallicity distribution
@@ -1792,7 +1791,6 @@ enum class BINARY_PROPERTY: int {
     BE_BINARY_CURRENT_ECCENTRICITY,
     BE_BINARY_CURRENT_ID,
     BE_BINARY_CURRENT_NS_MASS,
-    BE_BINARY_CURRENT_RANDOM_SEED,
     BE_BINARY_CURRENT_SEMI_MAJOR_AXIS,
     BE_BINARY_CURRENT_TOTAL_TIME,
     CIRCULARIZATION_TIMESCALE,
@@ -1811,10 +1809,8 @@ enum class BINARY_PROPERTY: int {
     ERROR,
     ID,
     IMMEDIATE_RLOF_POST_COMMON_ENVELOPE,
-    MASS_1_FINAL,
     MASS_1_POST_COMMON_ENVELOPE,
     MASS_1_PRE_COMMON_ENVELOPE,
-    MASS_2_FINAL,
     MASS_2_POST_COMMON_ENVELOPE,
     MASS_2_PRE_COMMON_ENVELOPE,
     MASS_ENV_1,
@@ -1835,7 +1831,6 @@ enum class BINARY_PROPERTY: int {
     RLOF_POST_MT_ECCENTRICITY,
     RLOF_POST_MT_EVENT_COUNTER,
     RLOF_POST_MT_ID,
-    RLOF_POST_MT_RANDOM_SEED,
     RLOF_POST_MT_SEMI_MAJOR_AXIS,
     RLOF_POST_MT_STAR1_MASS,
     RLOF_POST_MT_STAR2_MASS,
@@ -1917,7 +1912,6 @@ const COMPASUnorderedMap<BINARY_PROPERTY, std::string> BINARY_PROPERTY_LABEL = {
     { BINARY_PROPERTY::BE_BINARY_CURRENT_ECCENTRICITY,                     "BE_BINARY_CURRENT_ECCENTRICITY" },
     { BINARY_PROPERTY::BE_BINARY_CURRENT_ID,                               "BE_BINARY_CURRENT_ID" },
     { BINARY_PROPERTY::BE_BINARY_CURRENT_NS_MASS,                          "BE_BINARY_CURRENT_NS_MASS" },
-    { BINARY_PROPERTY::BE_BINARY_CURRENT_RANDOM_SEED,                      "BE_BINARY_CURRENT_RANDOM_SEED" },
     { BINARY_PROPERTY::BE_BINARY_CURRENT_SEMI_MAJOR_AXIS,                  "BE_BINARY_CURRENT_SEMI_MAJOR_AXIS" },
     { BINARY_PROPERTY::BE_BINARY_CURRENT_TOTAL_TIME,                       "BE_BINARY_CURRENT_TOTAL_TIME" },
     { BINARY_PROPERTY::CIRCULARIZATION_TIMESCALE,                          "CIRCULARIZATION_TIMESCALE" },
@@ -1936,10 +1930,8 @@ const COMPASUnorderedMap<BINARY_PROPERTY, std::string> BINARY_PROPERTY_LABEL = {
     { BINARY_PROPERTY::ERROR,                                              "ERROR" },
     { BINARY_PROPERTY::ID,                                                 "ID" },
     { BINARY_PROPERTY::IMMEDIATE_RLOF_POST_COMMON_ENVELOPE,                "IMMEDIATE_RLOF_POST_COMMON_ENVELOPE" },
-    { BINARY_PROPERTY::MASS_1_FINAL,                                       "MASS_1_FINAL" },
     { BINARY_PROPERTY::MASS_1_POST_COMMON_ENVELOPE,                        "MASS_1_POST_COMMON_ENVELOPE" },
     { BINARY_PROPERTY::MASS_1_PRE_COMMON_ENVELOPE,                         "MASS_1_PRE_COMMON_ENVELOPE" },
-    { BINARY_PROPERTY::MASS_2_FINAL,                                       "MASS_2_FINAL" },
     { BINARY_PROPERTY::MASS_2_POST_COMMON_ENVELOPE,                        "MASS_2_POST_COMMON_ENVELOPE" },
     { BINARY_PROPERTY::MASS_2_PRE_COMMON_ENVELOPE,                         "MASS_2_PRE_COMMON_ENVELOPE" },
     { BINARY_PROPERTY::MASS_ENV_1,                                         "MASS_ENV_1" },
@@ -1960,7 +1952,6 @@ const COMPASUnorderedMap<BINARY_PROPERTY, std::string> BINARY_PROPERTY_LABEL = {
     { BINARY_PROPERTY::RLOF_POST_MT_ECCENTRICITY,                          "RLOF_POST_MT_ECCENTRICITY" },
     { BINARY_PROPERTY::RLOF_POST_MT_EVENT_COUNTER,                         "RLOF_POST_MT_EVENT_COUNTER" },
     { BINARY_PROPERTY::RLOF_POST_MT_ID,                                    "RLOF_POST_MT_ID" },
-    { BINARY_PROPERTY::RLOF_POST_MT_RANDOM_SEED,                           "RLOF_POST_MT_RANDOM_SEED" },
     { BINARY_PROPERTY::RLOF_POST_MT_SEMI_MAJOR_AXIS,                       "RLOF_POST_MT_SEMI_MAJOR_AXIS" },
     { BINARY_PROPERTY::RLOF_POST_MT_STAR1_MASS,                            "RLOF_POST_MT_STAR1_MASS" },
     { BINARY_PROPERTY::RLOF_POST_MT_STAR2_MASS,                            "RLOF_POST_MT_STAR2_MASS" },
@@ -2619,12 +2610,11 @@ const std::map<BINARY_PROPERTY, PROPERTY_DETAILS> BINARY_PROPERTY_DETAIL = {
     { BINARY_PROPERTY::BE_BINARY_CURRENT_ECCENTRICITY,                      { TYPENAME::DOUBLE,         "Eccentricity",         "-",                14, 6 }},
     { BINARY_PROPERTY::BE_BINARY_CURRENT_ID,                                { TYPENAME::OBJECT_ID,      "ID",                   "-",                12, 1 }},
     { BINARY_PROPERTY::BE_BINARY_CURRENT_NS_MASS,                           { TYPENAME::DOUBLE,         "NS_Mass",              "Msol",             14, 6 }},
-    { BINARY_PROPERTY::BE_BINARY_CURRENT_RANDOM_SEED,                       { TYPENAME::ULONGINT,       "SEED",                 "-",                12, 1 }},
     { BINARY_PROPERTY::BE_BINARY_CURRENT_SEMI_MAJOR_AXIS,                   { TYPENAME::DOUBLE,         "SemiMajorAxis",        "Rsol",             14, 6 }},
     { BINARY_PROPERTY::BE_BINARY_CURRENT_TOTAL_TIME,                        { TYPENAME::DOUBLE,         "Total_Time",           "Myr",              16, 8 }},
     { BINARY_PROPERTY::CIRCULARIZATION_TIMESCALE,                           { TYPENAME::DOUBLE,         "Tau_Circ",             "Myr",              16, 8 }},
     { BINARY_PROPERTY::COMMON_ENVELOPE_AT_LEAST_ONCE,                       { TYPENAME::BOOL,           "CEE",                  "Event",             0, 0 }},
-    { BINARY_PROPERTY::COMMON_ENVELOPE_EVENT_COUNT,                         { TYPENAME::UINT,           "CE_Event_Count",       "Count",             6, 1 }},
+    { BINARY_PROPERTY::COMMON_ENVELOPE_EVENT_COUNT,                         { TYPENAME::UINT,           "CE_Event_Counter",     "Count",             6, 1 }},
     { BINARY_PROPERTY::DIMENSIONLESS_KICK_MAGNITUDE,                        { TYPENAME::DOUBLE,         "Kick_Magnitude(uK)",   "-",                14, 6 }},
     { BINARY_PROPERTY::DOUBLE_CORE_COMMON_ENVELOPE,                         { TYPENAME::BOOL,           "Double_Core_CE",       "Event",             0, 0 }},
     { BINARY_PROPERTY::DT,                                                  { TYPENAME::DOUBLE,         "dT",                   "Myr",              16, 8 }},
@@ -2637,10 +2627,8 @@ const std::map<BINARY_PROPERTY, PROPERTY_DETAILS> BINARY_PROPERTY_DETAIL = {
     { BINARY_PROPERTY::ERROR,                                               { TYPENAME::ERROR,          "Error",                "-",                 4, 1 }},
     { BINARY_PROPERTY::ID,                                                  { TYPENAME::OBJECT_ID,      "ID",                   "-",                12, 1 }},
     { BINARY_PROPERTY::IMMEDIATE_RLOF_POST_COMMON_ENVELOPE,                 { TYPENAME::BOOL,           "Immediate_RLOF>CE",    "Event",             0, 0 }},
-    { BINARY_PROPERTY::MASS_1_FINAL,                                        { TYPENAME::DOUBLE,         "Core_Mass(1)",         "Msol",             14, 6 }},
     { BINARY_PROPERTY::MASS_1_POST_COMMON_ENVELOPE,                         { TYPENAME::DOUBLE,         "Mass(1)>CE",           "Msol",             14, 6 }},
     { BINARY_PROPERTY::MASS_1_PRE_COMMON_ENVELOPE,                          { TYPENAME::DOUBLE,         "Mass(1)<CE",           "Msol",             14, 6 }},
-    { BINARY_PROPERTY::MASS_2_FINAL,                                        { TYPENAME::DOUBLE,         "Core_Mass(2)",         "Msol",             14, 6 }},
     { BINARY_PROPERTY::MASS_2_POST_COMMON_ENVELOPE,                         { TYPENAME::DOUBLE,         "Mass(2)>CE",           "Msol",             14, 6 }},
     { BINARY_PROPERTY::MASS_2_PRE_COMMON_ENVELOPE,                          { TYPENAME::DOUBLE,         "Mass(2)<CE",           "Msol",             14, 6 }},
     { BINARY_PROPERTY::MASS_ENV_1,                                          { TYPENAME::DOUBLE,         "Mass_Env(1)",          "Msol",             14, 6 }},
@@ -2659,9 +2647,8 @@ const std::map<BINARY_PROPERTY, PROPERTY_DETAILS> BINARY_PROPERTY_DETAIL = {
     { BINARY_PROPERTY::RANDOM_SEED,                                         { TYPENAME::ULONGINT,       "SEED",                 "-",                12, 1 }},
     { BINARY_PROPERTY::RLOF_POST_MT_COMMON_ENVELOPE,                        { TYPENAME::BOOL,           "CEE>MT",               "State",             0, 0 }},
     { BINARY_PROPERTY::RLOF_POST_MT_ECCENTRICITY,                           { TYPENAME::DOUBLE,         "Eccentricity>MT",      "-",                14, 6 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_EVENT_COUNTER,                          { TYPENAME::UINT,           "Event_Counter>MT",     "Count",             6, 1 }},
+    { BINARY_PROPERTY::RLOF_POST_MT_EVENT_COUNTER,                          { TYPENAME::UINT,           "MT_Event_Counter",     "Count",             6, 1 }},
     { BINARY_PROPERTY::RLOF_POST_MT_ID,                                     { TYPENAME::OBJECT_ID,      "ID>MT",                "",                 12, 1 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_RANDOM_SEED,                            { TYPENAME::ULONGINT,       "SEED>MT",              "",                 12, 1 }},
     { BINARY_PROPERTY::RLOF_POST_MT_SEMI_MAJOR_AXIS,                        { TYPENAME::DOUBLE,         "SemiMajorAxis>MT",     "Rsol",             14, 6 }},
     { BINARY_PROPERTY::RLOF_POST_MT_STAR1_MASS,                             { TYPENAME::DOUBLE,         "Mass(1)>MT",           "Msol",             14, 6 }},
     { BINARY_PROPERTY::RLOF_POST_MT_STAR2_MASS,                             { TYPENAME::DOUBLE,         "Mass(2)>MT",           "Msol",             14, 6 }},
@@ -2669,10 +2656,10 @@ const std::map<BINARY_PROPERTY, PROPERTY_DETAILS> BINARY_PROPERTY_DETAIL = {
     { BINARY_PROPERTY::RLOF_POST_MT_STAR2_RADIUS,                           { TYPENAME::DOUBLE,         "Radius(2)>MT",         "Rsol",             14, 6 }},
     { BINARY_PROPERTY::RLOF_POST_MT_STAR1_RLOF,                             { TYPENAME::BOOL,           "RLOF(1)>MT",           "State",             0, 0 }},
     { BINARY_PROPERTY::RLOF_POST_MT_STAR2_RLOF,                             { TYPENAME::BOOL,           "RLOF(2)>MT",           "State",             0, 0 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_STAR1_STELLAR_TYPE,                     { TYPENAME::STELLAR_TYPE,   "Type(1)>MT",           "",                  4, 1 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_STAR1_STELLAR_TYPE_NAME,                { TYPENAME::STRING,         "Type(1)>MT",           "",                 42, 1 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_STAR2_STELLAR_TYPE,                     { TYPENAME::STELLAR_TYPE,   "Type(2)>MT",           "",                  4, 1 }},
-    { BINARY_PROPERTY::RLOF_POST_MT_STAR2_STELLAR_TYPE_NAME,                { TYPENAME::STRING,         "Type(2)>MT",           "",                 42, 1 }},
+    { BINARY_PROPERTY::RLOF_POST_MT_STAR1_STELLAR_TYPE,                     { TYPENAME::STELLAR_TYPE,   "Stellar_Type(1)>MT",    "",                 4, 1 }},
+    { BINARY_PROPERTY::RLOF_POST_MT_STAR1_STELLAR_TYPE_NAME,                { TYPENAME::STRING,         "Stellar_Type(1)>MT",    "",                42, 1 }},
+    { BINARY_PROPERTY::RLOF_POST_MT_STAR2_STELLAR_TYPE,                     { TYPENAME::STELLAR_TYPE,   "Stellar_Type(2)>MT",    "",                 4, 1 }},
+    { BINARY_PROPERTY::RLOF_POST_MT_STAR2_STELLAR_TYPE_NAME,                { TYPENAME::STRING,         "Stellar_Type(2)>MT",    "",                42, 1 }},
     { BINARY_PROPERTY::RLOF_POST_MT_TIME,                                   { TYPENAME::DOUBLE,         "Time>MT",              "Myr",              16, 8 }},
     { BINARY_PROPERTY::RLOF_PRE_MT_ECCENTRICITY,                            { TYPENAME::DOUBLE,         "Eccentricity<MT",      "-",                14, 6 }},
     { BINARY_PROPERTY::RLOF_PRE_MT_SEMI_MAJOR_AXIS,                         { TYPENAME::DOUBLE,         "SemiMajorAxis<MT",     "Rsol",             14, 6 }},
@@ -2682,10 +2669,10 @@ const std::map<BINARY_PROPERTY, PROPERTY_DETAILS> BINARY_PROPERTY_DETAIL = {
     { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_RADIUS,                            { TYPENAME::DOUBLE,         "Radius(2)<MT",         "Rsol",             14, 6 }},
     { BINARY_PROPERTY::RLOF_PRE_MT_STAR1_RLOF,                              { TYPENAME::BOOL,           "RLOF(1)<MT",           "Event",             0, 0 }},
     { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_RLOF,                              { TYPENAME::BOOL,           "RLOF(2)<MT",           "Event",             0, 0 }},
-    { BINARY_PROPERTY::RLOF_PRE_MT_STAR1_STELLAR_TYPE,                      { TYPENAME::STELLAR_TYPE,   "Type(1)<MT",           "",                  4, 1 }},
-    { BINARY_PROPERTY::RLOF_PRE_MT_STAR1_STELLAR_TYPE_NAME,                 { TYPENAME::STRING,         "Type(1)<MT",           "",                 42, 1 }},
-    { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_STELLAR_TYPE,                      { TYPENAME::STELLAR_TYPE,   "Type(2)<MT",           "",                  4, 1 }},
-    { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_STELLAR_TYPE_NAME,                 { TYPENAME::STRING,         "Type(2)<MT",           "",                 42, 1 }},
+    { BINARY_PROPERTY::RLOF_PRE_MT_STAR1_STELLAR_TYPE,                      { TYPENAME::STELLAR_TYPE,   "Stellar_Type(1)<MT",   "",                  4, 1 }},
+    { BINARY_PROPERTY::RLOF_PRE_MT_STAR1_STELLAR_TYPE_NAME,                 { TYPENAME::STRING,         "Stellar_Type(1)<MT",   "",                 42, 1 }},
+    { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_STELLAR_TYPE,                      { TYPENAME::STELLAR_TYPE,   "Stellar_Type(2)<MT",   "",                  4, 1 }},
+    { BINARY_PROPERTY::RLOF_PRE_MT_STAR2_STELLAR_TYPE_NAME,                 { TYPENAME::STRING,         "Stellar_Type(2)<MT",   "",                 42, 1 }},
     { BINARY_PROPERTY::RLOF_PRE_MT_TIME,                                    { TYPENAME::DOUBLE,         "Time<MT",              "Myr",              16, 8 }},
     { BINARY_PROPERTY::RLOF_SECONDARY_POST_COMMON_ENVELOPE,                 { TYPENAME::BOOL,           "RLOF_Secondary>CE",    "Event",             0, 0 }},
     { BINARY_PROPERTY::ROCHE_LOBE_RADIUS_1,                                 { TYPENAME::DOUBLE,         "RocheLobe(1)|a",       "-",                14, 6 }},
@@ -2798,8 +2785,8 @@ const std::map<PROGRAM_OPTION, PROPERTY_DETAILS> PROGRAM_OPTION_DETAIL = {
     { PROGRAM_OPTION::KICK_MAGNITUDE_DISTRIBUTION_SIGMA_FOR_USSN,           { TYPENAME::DOUBLE,         "Sigma_Kick_USSN",              "kms^-1",           14, 6 }},
 
     { PROGRAM_OPTION::KICK_MAGNITUDE,                                       { TYPENAME::DOUBLE,         "Kick_Magnitude",               "kms^-1",           14, 6 }},
-    { PROGRAM_OPTION::KICK_MAGNITUDE_1,                                     { TYPENAME::DOUBLE,         "Kick_Magnitude_1",             "kms^-1",           14, 6 }},
-    { PROGRAM_OPTION::KICK_MAGNITUDE_2,                                     { TYPENAME::DOUBLE,         "Kick_Magnitude_2",             "kms^-1",           14, 6 }},
+    { PROGRAM_OPTION::KICK_MAGNITUDE_1,                                     { TYPENAME::DOUBLE,         "Kick_Magnitude(1)",            "kms^-1",           14, 6 }},
+    { PROGRAM_OPTION::KICK_MAGNITUDE_2,                                     { TYPENAME::DOUBLE,         "Kick_Magnitude(2)",            "kms^-1",           14, 6 }},
 
     { PROGRAM_OPTION::KICK_MAGNITUDE_RANDOM,                                { TYPENAME::DOUBLE,         "Kick_Magnitude_Random",        "-",                14, 6 }},
     { PROGRAM_OPTION::KICK_MAGNITUDE_RANDOM_1,                              { TYPENAME::DOUBLE,         "Kick_Magnitude_Random(1)",     "-",                14, 6 }},
@@ -2970,7 +2957,7 @@ const COMPASUnorderedMap<RUN_DETAILS_COLUMNS, std::tuple<std::string, TYPENAME, 
 //
 const ANY_PROPERTY_VECTOR BSE_BE_BINARIES_REC = {
     BINARY_PROPERTY::BE_BINARY_CURRENT_ID,
-    BINARY_PROPERTY::BE_BINARY_CURRENT_RANDOM_SEED,
+    BINARY_PROPERTY::RANDOM_SEED,
     BINARY_PROPERTY::BE_BINARY_CURRENT_DT,
     BINARY_PROPERTY::BE_BINARY_CURRENT_TOTAL_TIME,
     BINARY_PROPERTY::BE_BINARY_CURRENT_NS_MASS,
@@ -3003,8 +2990,8 @@ const ANY_PROPERTY_VECTOR BSE_COMMON_ENVELOPES_REC = {
     BINARY_PROPERTY::ROCHE_LOBE_RADIUS_2_PRE_COMMON_ENVELOPE,
     BINARY_PROPERTY::ROCHE_LOBE_RADIUS_2_POST_COMMON_ENVELOPE,
     BINARY_PROPERTY::MASS_1_PRE_COMMON_ENVELOPE,
+    BINARY_PROPERTY::MASS_1_POST_COMMON_ENVELOPE,
     BINARY_PROPERTY::MASS_ENV_1,
-    BINARY_PROPERTY::MASS_1_FINAL,
     BINARY_PROPERTY::RADIUS_1_PRE_COMMON_ENVELOPE,
     BINARY_PROPERTY::RADIUS_1_POST_COMMON_ENVELOPE,
     BINARY_PROPERTY::STELLAR_TYPE_1_PRE_COMMON_ENVELOPE,
@@ -3020,8 +3007,8 @@ const ANY_PROPERTY_VECTOR BSE_COMMON_ENVELOPES_REC = {
     STAR_1_PROPERTY::BINDING_ENERGY_LOVERIDGE_WINDS,
     STAR_1_PROPERTY::BINDING_ENERGY_KRUCKOW,
     BINARY_PROPERTY::MASS_2_PRE_COMMON_ENVELOPE,
+    BINARY_PROPERTY::MASS_2_POST_COMMON_ENVELOPE,
     BINARY_PROPERTY::MASS_ENV_2,
-    BINARY_PROPERTY::MASS_2_FINAL,
     BINARY_PROPERTY::RADIUS_2_PRE_COMMON_ENVELOPE,
     BINARY_PROPERTY::RADIUS_2_POST_COMMON_ENVELOPE,
     BINARY_PROPERTY::STELLAR_TYPE_2_PRE_COMMON_ENVELOPE,
@@ -3194,7 +3181,7 @@ const ANY_PROPERTY_VECTOR BSE_PULSAR_EVOLUTION_REC = {
 // Default record definition for the RLOF Parameters logfile
 //
 const ANY_PROPERTY_VECTOR BSE_RLOF_PARAMETERS_REC = {
-    BINARY_PROPERTY::RLOF_POST_MT_RANDOM_SEED,
+    BINARY_PROPERTY::RANDOM_SEED,
     BINARY_PROPERTY::RLOF_POST_MT_STAR1_MASS,
     BINARY_PROPERTY::RLOF_POST_MT_STAR2_MASS,
     BINARY_PROPERTY::RLOF_POST_MT_STAR1_RADIUS,
@@ -3241,7 +3228,7 @@ const ANY_PROPERTY_VECTOR BSE_SUPERNOVAE_REC = {
     SUPERNOVA_PROPERTY::FALLBACK_FRACTION,
     BINARY_PROPERTY::ORBITAL_VELOCITY_PRE_SUPERNOVA,
     BINARY_PROPERTY::DIMENSIONLESS_KICK_MAGNITUDE, 
-    SUPERNOVA_PROPERTY::TRUE_ANOMALY,				
+    SUPERNOVA_PROPERTY::MEAN_ANOMALY,
     SUPERNOVA_PROPERTY::SUPERNOVA_THETA,
     SUPERNOVA_PROPERTY::SUPERNOVA_PHI,
     SUPERNOVA_PROPERTY::SN_TYPE,
@@ -3293,13 +3280,7 @@ const ANY_PROPERTY_VECTOR BSE_SYSTEM_PARAMETERS_REC = {
     BINARY_PROPERTY::SEMI_MAJOR_AXIS_INITIAL,
     BINARY_PROPERTY::ECCENTRICITY_INITIAL,
     STAR_1_PROPERTY::SUPERNOVA_KICK_MAGNITUDE_RANDOM_NUMBER,
-    STAR_1_PROPERTY::SUPERNOVA_THETA,
-    STAR_1_PROPERTY::SUPERNOVA_PHI,
-    STAR_1_PROPERTY::MEAN_ANOMALY,
     STAR_2_PROPERTY::SUPERNOVA_KICK_MAGNITUDE_RANDOM_NUMBER,
-    STAR_2_PROPERTY::SUPERNOVA_THETA,
-    STAR_2_PROPERTY::SUPERNOVA_PHI,
-    STAR_2_PROPERTY::MEAN_ANOMALY,
     STAR_1_PROPERTY::OMEGA_ZAMS,
     STAR_2_PROPERTY::OMEGA_ZAMS,
     PROGRAM_OPTION::KICK_MAGNITUDE_DISTRIBUTION_SIGMA_CCSN_NS,
@@ -3319,6 +3300,8 @@ const ANY_PROPERTY_VECTOR BSE_SYSTEM_PARAMETERS_REC = {
     STAR_1_PROPERTY::STELLAR_TYPE,
     STAR_2_PROPERTY::INITIAL_STELLAR_TYPE,
     STAR_2_PROPERTY::STELLAR_TYPE,
+    STAR_1_PROPERTY::CHEMICALLY_HOMOGENEOUS_MAIN_SEQUENCE,
+    STAR_2_PROPERTY::CHEMICALLY_HOMOGENEOUS_MAIN_SEQUENCE,
     BINARY_PROPERTY::ERROR
 };
 
@@ -3359,7 +3342,7 @@ const ANY_PROPERTY_VECTOR SSE_SUPERNOVAE_REC = {
     STAR_PROPERTY::DRAWN_KICK_MAGNITUDE,
     STAR_PROPERTY::KICK_MAGNITUDE,
     STAR_PROPERTY::FALLBACK_FRACTION,
-    STAR_PROPERTY::TRUE_ANOMALY,				
+    STAR_PROPERTY::MEAN_ANOMALY,				
     STAR_PROPERTY::SN_TYPE,
     STAR_PROPERTY::TOTAL_MASS_AT_COMPACT_OBJECT_FORMATION,
     STAR_PROPERTY::CO_CORE_MASS_AT_COMPACT_OBJECT_FORMATION,
@@ -3397,6 +3380,7 @@ const ANY_PROPERTY_VECTOR SSE_SYSTEM_PARAMETERS_REC = {
     STAR_PROPERTY::STELLAR_TYPE,
     STAR_PROPERTY::SUPERNOVA_KICK_MAGNITUDE_RANDOM_NUMBER,
     STAR_PROPERTY::MASS,
+    STAR_PROPERTY::CHEMICALLY_HOMOGENEOUS_MAIN_SEQUENCE,
     PROGRAM_OPTION::KICK_MAGNITUDE_DISTRIBUTION_SIGMA_CCSN_NS,
     PROGRAM_OPTION::KICK_MAGNITUDE_DISTRIBUTION_SIGMA_CCSN_BH,
     PROGRAM_OPTION::KICK_MAGNITUDE_DISTRIBUTION_SIGMA_FOR_ECSN,
