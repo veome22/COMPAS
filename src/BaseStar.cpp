@@ -345,6 +345,7 @@ COMPAS_VARIABLE BaseStar::StellarPropertyValue(const T_ANY_PROPERTY p_Property) 
             case ANY_STAR_PROPERTY::PULSAR_SPIN_FREQUENCY:                              value = Pulsar_SpinFrequency();                                 break;
             case ANY_STAR_PROPERTY::PULSAR_SPIN_PERIOD:                                 value = Pulsar_SpinPeriod();                                    break;
             case ANY_STAR_PROPERTY::RADIAL_EXPANSION_TIMESCALE:                         value = CalculateRadialExpansionTimescale();                    break;
+            case ANY_STAR_PROPERTY::RADIUS_PREV:                                        value = RadiusPrev();                                           break;
             case ANY_STAR_PROPERTY::RADIUS:                                             value = Radius();                                               break;
             case ANY_STAR_PROPERTY::RANDOM_SEED:                                        value = RandomSeed();                                           break;
             case ANY_STAR_PROPERTY::RZAMS:                                              value = RZAMS();                                                break;
