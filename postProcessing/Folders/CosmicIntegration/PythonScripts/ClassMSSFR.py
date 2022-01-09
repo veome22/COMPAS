@@ -515,12 +515,15 @@ class MSSFR(object):
         """
         Custom SFR same functional form as Madau et al
         """
-        a = self.customSFR[0]            
-        b = self.customSFR[1] 
-        c = self.customSFR[2] 
-        d = self.customSFR[3] 
-        SFR = a * ((1+z)**b) / (1 + ((1+z)/c)**d) * 1e9 #[1e9 for GPc-3]
-        return SFR # [Msun yr-1 Gpc-3] in comoving volume
+        # a = self.customSFR[0]            
+        # b = self.customSFR[1] 
+        # c = self.customSFR[2] 
+        # d = self.customSFR[3] 
+        # SFR = a * ((1+z)**b) / (1 + ((1+z)/c)**d) * 1e9 #[1e9 for GPc-3]
+       
+	# Harikane+ 2021 SFR 
+        SFR = = 1/((61.7*(1+z)**-3.13) + (10**(0.22*(1+z))) + (2.4* 10**(0.5*(1+z)-3.0))) * 1e9 #[1e9 for Gpc-3]
+	return SFR # [Msun yr-1 Gpc-3] in comoving volume
     #################################################
     #                                               #
     #           MZ - relations                      #
