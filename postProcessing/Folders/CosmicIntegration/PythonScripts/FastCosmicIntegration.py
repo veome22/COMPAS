@@ -66,7 +66,9 @@ def find_sfr(redshifts, a = 0.01, b =2.77, c = 2.90, d = 4.70):
             sfr       --> [list of floats] Star forming mass per unit volume per year for each redshift
     """
     # get value in mass per year per cubic Mpc and convert to per cubic Gpc then return
-    sfr = a * ((1+redshifts)**b) / (1 + ((1+redshifts)/c)**d) * u.Msun / u.yr / u.Mpc**3
+    # sfr = a * ((1+redshifts)**b) / (1 + ((1+redshifts)/c)**d) * u.Msun / u.yr / u.Mpc**3
+    # Harikane 21 SFR
+    sfr = = 1/((61.7*(1+redshifts)**-3.13) + (10**(0.22*(1+redshifts))) + (2.4* 10**(0.5*(1+redshifts)-3.0))) * u.Msun / u.yr / u.Mpc**3
     return sfr.to(u.Msun / u.yr / u.Gpc**3).value
 
 
